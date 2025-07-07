@@ -5,6 +5,7 @@ import base64
 
 # Set background GIF
 def set_bg_gif(gif_file):
+    import base64
     with open(gif_file, "rb") as f:
         data_url = base64.b64encode(f.read()).decode()
     st.markdown(
@@ -12,12 +13,24 @@ def set_bg_gif(gif_file):
         <style>
         .stApp {{
             background-image: url("data:image/gif;base64,{data_url}");
+            background-repeat: no-repeat;
             background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+        }}
+
+        @media only screen and (max-width: 768px) {{
+            .stApp {{
+                background-size: cover;
+                background-position: top;
+                background-attachment: scroll;
+            }}
         }}
         </style>
         """,
         unsafe_allow_html=True
     )
+
 
 
 # Apply background
